@@ -1,0 +1,152 @@
+:root {
+  --bg: #f4f6fb;
+  --card-bg: #ffffff;
+  --text: #1f2430;
+  --muted: #6b7280;
+  --primary: #4f6df5;
+  --primary-dark: #3a54d1;
+  --border: #e5e7eb;
+  --done: #9ca3af;
+  --danger: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Hiragino Sans", "Yu Gothic", "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: var(--primary-dark);
+}
+
+.greeting {
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+
+.input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.input-row input[type="text"] {
+  flex: 1;
+  min-width: 120px;
+}
+
+input, button {
+  font-size: 14px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: -1px;
+}
+
+button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--primary-dark);
+}
+
+.item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.item-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--bg);
+  border-radius: 8px;
+}
+
+.item-list li .item-text {
+  flex: 1;
+  word-break: break-word;
+}
+
+.item-list li.done .item-text {
+  text-decoration: line-through;
+  color: var(--done);
+}
+
+.item-list .time-badge {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--primary-dark);
+  background: #eef1ff;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.item-list button.delete {
+  background: transparent;
+  color: var(--danger);
+  padding: 4px 8px;
+}
+
+.item-list button.delete:hover {
+  background: #fee2e2;
+}
+
+.empty-hint {
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+  padding: 12px 0;
+}

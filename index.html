@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Secretary - 自分専用の秘書</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>My Secretary</h1>
+      <p id="greeting" class="greeting"></p>
+    </header>
+
+    <main class="grid">
+      <!-- Tasks -->
+      <section class="card">
+        <h2>今日のタスク</h2>
+        <form id="task-form" class="input-row">
+          <input type="text" id="task-input" placeholder="やることを入力..." required>
+          <button type="submit">追加</button>
+        </form>
+        <ul id="task-list" class="item-list"></ul>
+      </section>
+
+      <!-- Schedule / Reminders -->
+      <section class="card">
+        <h2>スケジュール・リマインダー</h2>
+        <form id="schedule-form" class="input-row">
+          <input type="time" id="schedule-time" required>
+          <input type="text" id="schedule-input" placeholder="予定を入力..." required>
+          <button type="submit">追加</button>
+        </form>
+        <ul id="schedule-list" class="item-list"></ul>
+      </section>
+
+      <!-- Notes -->
+      <section class="card">
+        <h2>メモ</h2>
+        <form id="note-form" class="input-row">
+          <input type="text" id="note-input" placeholder="メモを入力..." required>
+          <button type="submit">追加</button>
+        </form>
+        <ul id="note-list" class="item-list"></ul>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
