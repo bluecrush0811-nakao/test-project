@@ -41,7 +41,8 @@ test-project/
 ├── index.html   # My Secretary アプリの画面
 ├── style.css    # スタイル定義
 ├── script.js    # アプリのロジック(localStorageで永続化)
-└── sample.txt
+├── sample.txt
+└── vault/              Obsidian保管庫（vault）。詳細は vault/README.md を参照
 ```
 
 新しいファイルやディレクトリを追加した際は、このセクションも合わせて更新してください。
