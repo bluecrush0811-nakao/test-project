@@ -18,7 +18,9 @@
 
 ```
 test-project/
-└── README.md
+├── CLAUDE.md
+├── README.md
+└── sample.txt
 ```
 
 新しいファイルやディレクトリを追加した際は、このセクションも合わせて更新してください。
