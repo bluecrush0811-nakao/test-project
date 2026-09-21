@@ -7,22 +7,25 @@ function generateId() {
     : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
+function normalizeData(parsed) {
+  const schedule = (parsed.schedule || []).map((item) => ({
+    id: item.id || generateId(),
+    time: item.time,
+    text: item.text,
+    notifiedOn: item.notifiedOn || null,
+  }));
+  return {
+    tasks: parsed.tasks || [],
+    schedule,
+    notes: parsed.notes || [],
+  };
+}
+
 function loadData() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return { tasks: [], schedule: [], notes: [] };
-    const parsed = JSON.parse(raw);
-    const schedule = (parsed.schedule || []).map((item) => ({
-      id: item.id || generateId(),
-      time: item.time,
-      text: item.text,
-      notifiedOn: item.notifiedOn || null,
-    }));
-    return {
-      tasks: parsed.tasks || [],
-      schedule,
-      notes: parsed.notes || [],
-    };
+    return normalizeData(JSON.parse(raw));
   } catch {
     return { tasks: [], schedule: [], notes: [] };
   }
@@ -34,6 +37,27 @@ function saveData(data) {
 
 const state = loadData();
 const dueIds = new Set();
+
+function renderAll() {
+  renderTasks();
+  renderSchedule();
+  renderNotes();
+}
+
+// Exposed so drive-sync.js can read/replace the app's state without
+// duplicating the localStorage schema or re-rendering logic.
+window.MySecretary = {
+  getStateJSON: () => JSON.stringify(state),
+  replaceState: (json) => {
+    const normalized = normalizeData(JSON.parse(json));
+    state.tasks = normalized.tasks;
+    state.schedule = normalized.schedule;
+    state.notes = normalized.notes;
+    dueIds.clear();
+    saveData(state);
+    renderAll();
+  },
+};
 
 function setGreeting() {
   const hour = new Date().getHours();
@@ -284,9 +308,7 @@ function init() {
   setupTaskForm();
   setupScheduleForm();
   setupNoteForm();
-  renderTasks();
-  renderSchedule();
-  renderNotes();
+  renderAll();
   renderNotificationStatus();
   checkReminders();
   setInterval(checkReminders, REMINDER_CHECK_INTERVAL_MS);
