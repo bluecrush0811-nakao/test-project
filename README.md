@@ -18,7 +18,9 @@
 
 ```
 test-project/
-└── README.md
+├── README.md
+├── sample.txt
+└── vault/              Obsidian保管庫（vault）。詳細は vault/README.md を参照
 ```
 
 新しいファイルやディレクトリを追加した際は、このセクションも合わせて更新してください。

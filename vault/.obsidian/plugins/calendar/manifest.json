@@ -1,0 +1,10 @@
+{
+  "id": "calendar",
+  "name": "Calendar",
+  "version": "1.5.10",
+  "minAppVersion": "0.9.12",
+  "description": "Display a calendar for streamlined navigation to daily notes.",
+  "author": "liamcain",
+  "authorUrl": "https://github.com/liamcain",
+  "isDesktopOnly": false
+}
