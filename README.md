@@ -98,7 +98,8 @@ test-project/
 ├── vault/              Obsidian保管庫（vault）。詳細は vault/README.md を参照
 └── .claude/
     └── skills/
-        └── threads-post/   # Threads投稿文作成スキル(SKILL.md)
+        ├── threads-post/   # Threads投稿文作成スキル(SKILL.md)
+        └── x-post/         # X(旧Twitter)投稿文作成スキル(SKILL.md)
 ```
 
 新しいファイルやディレクトリを追加した際は、このセクションも合わせて更新してください。
