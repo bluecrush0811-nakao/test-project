@@ -1,15 +1,31 @@
 const STORAGE_KEY = "my-secretary-data";
+const REMINDER_CHECK_INTERVAL_MS = 20000;
+
+function generateId() {
+  return crypto.randomUUID
+    ? crypto.randomUUID()
+    : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
+function normalizeData(parsed) {
+  const schedule = (parsed.schedule || []).map((item) => ({
+    id: item.id || generateId(),
+    time: item.time,
+    text: item.text,
+    notifiedOn: item.notifiedOn || null,
+  }));
+  return {
+    tasks: parsed.tasks || [],
+    schedule,
+    notes: parsed.notes || [],
+  };
+}
 
 function loadData() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return { tasks: [], schedule: [], notes: [] };
-    const parsed = JSON.parse(raw);
-    return {
-      tasks: parsed.tasks || [],
-      schedule: parsed.schedule || [],
-      notes: parsed.notes || [],
-    };
+    return normalizeData(JSON.parse(raw));
   } catch {
     return { tasks: [], schedule: [], notes: [] };
   }
@@ -20,6 +36,28 @@ function saveData(data) {
 }
 
 const state = loadData();
+const dueIds = new Set();
+
+function renderAll() {
+  renderTasks();
+  renderSchedule();
+  renderNotes();
+}
+
+// Exposed so drive-sync.js can read/replace the app's state without
+// duplicating the localStorage schema or re-rendering logic.
+window.MySecretary = {
+  getStateJSON: () => JSON.stringify(state),
+  replaceState: (json) => {
+    const normalized = normalizeData(JSON.parse(json));
+    state.tasks = normalized.tasks;
+    state.schedule = normalized.schedule;
+    state.notes = normalized.notes;
+    dueIds.clear();
+    saveData(state);
+    renderAll();
+  },
+};
 
 function setGreeting() {
   const hour = new Date().getHours();
@@ -31,9 +69,10 @@ function setGreeting() {
   document.getElementById("greeting").textContent = greeting;
 }
 
-function createListItem({ text, badge, done, onToggle, onDelete }) {
+function createListItem({ text, badge, done, due, onToggle, onDelete }) {
   const li = document.createElement("li");
   if (done) li.classList.add("done");
+  if (due) li.classList.add("due");
 
   if (onToggle) {
     const checkbox = document.createElement("input");
@@ -110,8 +149,10 @@ function renderSchedule() {
     const li = createListItem({
       text: item.text,
       badge: item.time,
+      due: dueIds.has(item.id),
       onDelete: () => {
         state.schedule.splice(realIndex, 1);
+        dueIds.delete(item.id);
         saveData(state);
         renderSchedule();
       },
@@ -163,7 +204,7 @@ function setupScheduleForm() {
     const time = timeInput.value;
     const text = textInput.value.trim();
     if (!time || !text) return;
-    state.schedule.push({ time, text });
+    state.schedule.push({ id: generateId(), time, text, notifiedOn: null });
     saveData(state);
     timeInput.value = "";
     textInput.value = "";
@@ -185,14 +226,92 @@ function setupNoteForm() {
   });
 }
 
+function isNotificationSupported() {
+  return typeof Notification !== "undefined";
+}
+
+function renderNotificationStatus() {
+  const el = document.getElementById("notification-status");
+  if (!isNotificationSupported()) {
+    el.textContent = "このブラウザは通知に対応していません。";
+    return;
+  }
+  el.innerHTML = "";
+  const permission = Notification.permission;
+  if (permission === "granted") {
+    const span = document.createElement("span");
+    span.className = "badge-on";
+    span.textContent = "🔔 通知は有効です";
+    el.appendChild(span);
+  } else if (permission === "denied") {
+    const span = document.createElement("span");
+    span.className = "badge-off";
+    span.textContent = "🔕 通知がブロックされています(ブラウザ設定から許可してください)";
+    el.appendChild(span);
+  } else {
+    const span = document.createElement("span");
+    span.textContent = "予定の時刻に通知でお知らせできます。";
+    el.appendChild(span);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = "通知を有効にする";
+    btn.addEventListener("click", async () => {
+      await Notification.requestPermission();
+      renderNotificationStatus();
+    });
+    el.appendChild(btn);
+  }
+}
+
+function formatLocalDate(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function formatLocalTime(date) {
+  const h = String(date.getHours()).padStart(2, "0");
+  const m = String(date.getMinutes()).padStart(2, "0");
+  return `${h}:${m}`;
+}
+
+function notifyReminder(item) {
+  if (isNotificationSupported() && Notification.permission === "granted") {
+    new Notification("リマインダー", { body: item.text, tag: item.id });
+  }
+  dueIds.add(item.id);
+  renderSchedule();
+  setTimeout(() => {
+    dueIds.delete(item.id);
+    renderSchedule();
+  }, 60000);
+}
+
+function checkReminders() {
+  const now = new Date();
+  const today = formatLocalDate(now);
+  const nowHHMM = formatLocalTime(now);
+  let changed = false;
+  state.schedule.forEach((item) => {
+    if (item.time === nowHHMM && item.notifiedOn !== today) {
+      item.notifiedOn = today;
+      changed = true;
+      notifyReminder(item);
+    }
+  });
+  if (changed) saveData(state);
+}
+
 function init() {
   setGreeting();
   setupTaskForm();
   setupScheduleForm();
   setupNoteForm();
-  renderTasks();
-  renderSchedule();
-  renderNotes();
+  renderAll();
+  renderNotificationStatus();
+  checkReminders();
+  setInterval(checkReminders, REMINDER_CHECK_INTERVAL_MS);
 }
 
 document.addEventListener("DOMContentLoaded", init);

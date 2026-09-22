@@ -27,6 +27,7 @@
       <!-- Schedule / Reminders -->
       <section class="card">
         <h2>スケジュール・リマインダー</h2>
+        <div id="notification-status" class="notification-status"></div>
         <form id="schedule-form" class="input-row">
           <input type="time" id="schedule-time" required>
           <input type="text" id="schedule-input" placeholder="予定を入力..." required>
@@ -44,9 +45,37 @@
         </form>
         <ul id="note-list" class="item-list"></ul>
       </section>
+
+      <!-- Cloud Sync -->
+      <section class="card">
+        <h2>クラウド同期(Google ドライブ)</h2>
+        <div id="sync-message" class="notification-status"></div>
+
+        <div id="sync-setup">
+          <p class="hint-text">
+            Google ドライブと同期するには、あなた自身の Google Cloud プロジェクトで
+            発行した OAuth クライアントIDが必要です。設定方法は README を参照してください。
+          </p>
+          <form id="sync-clientid-form" class="input-row">
+            <input type="text" id="sync-clientid-input" placeholder="Google Client ID を入力...">
+            <button type="submit">保存</button>
+          </form>
+        </div>
+
+        <div id="sync-controls">
+          <button id="sync-signin-btn" type="button">Googleでログイン</button>
+          <div id="sync-actions" class="input-row">
+            <button id="sync-upload-btn" type="button">⬆ アップロード</button>
+            <button id="sync-download-btn" type="button">⬇ ダウンロード</button>
+            <button id="sync-signout-btn" type="button" class="secondary-btn">ログアウト</button>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
   <script src="script.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="drive-sync.js"></script>
 </body>
 </html>

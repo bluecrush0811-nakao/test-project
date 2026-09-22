@@ -1,0 +1,10 @@
+{
+  "renderNullAs": "\\-",
+  "taskCompletionTracking": false,
+  "warnOnEmptyResult": true,
+  "refreshEnabled": true,
+  "refreshInterval": 2500,
+  "defaultDateFormat": "YYYY-MM-DD",
+  "defaultDateTimeFormat": "YYYY-MM-DD HH:mm",
+  "maxRecursiveRenderDepth": 4
+}

@@ -150,3 +150,63 @@ button:hover {
   text-align: center;
   padding: 12px 0;
 }
+
+.notification-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.notification-status button {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.notification-status .badge-on,
+.notification-status.badge-on {
+  color: #16a34a;
+}
+
+.notification-status .badge-off,
+.notification-status.badge-off {
+  color: var(--danger);
+}
+
+.item-list li.due {
+  background: #fff7ed;
+  outline: 2px solid #f59e0b;
+  animation: due-pulse 1.5s ease-in-out 2;
+}
+
+@keyframes due-pulse {
+  0%, 100% { outline-color: #f59e0b; }
+  50% { outline-color: transparent; }
+}
+
+.hint-text {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0 0 10px;
+}
+
+#sync-controls {
+  display: none;
+}
+
+#sync-actions {
+  display: none;
+}
+
+.secondary-btn {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.secondary-btn:hover {
+  background: var(--bg);
+}
