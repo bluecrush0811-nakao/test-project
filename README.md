@@ -41,7 +41,10 @@ test-project/
 ├── index.html   # My Secretary アプリの画面
 ├── style.css    # スタイル定義
 ├── script.js    # アプリのロジック(localStorageで永続化)
-└── sample.txt
+├── sample.txt
+└── .claude/
+    └── skills/
+        └── threads-post/   # Threads投稿文作成スキル(SKILL.md)
 ```
 
 新しいファイルやディレクトリを追加した際は、このセクションも合わせて更新してください。
