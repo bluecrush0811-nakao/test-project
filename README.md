@@ -95,7 +95,10 @@ test-project/
 ├── script.js       # アプリのロジック(localStorageで永続化)
 ├── drive-sync.js   # Googleドライブとのクラウド同期ロジック
 ├── sample.txt
-└── vault/              Obsidian保管庫（vault）。詳細は vault/README.md を参照
+├── vault/              Obsidian保管庫（vault）。詳細は vault/README.md を参照
+└── .claude/
+    └── skills/
+        └── threads-post/   # Threads投稿文作成スキル(SKILL.md)
 ```
 
 新しいファイルやディレクトリを追加した際は、このセクションも合わせて更新してください。
