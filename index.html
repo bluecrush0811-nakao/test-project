@@ -45,6 +45,21 @@
         <ul id="note-list" class="item-list"></ul>
       </section>
     </main>
+
+    <!-- Backup / Transfer -->
+    <section class="card backup-card">
+      <h2>データの引き継ぎ</h2>
+      <p class="backup-help">
+        機種変更の前に「エクスポート」でバックアップファイルを保存し、
+        新しい端末で「インポート」から読み込むとデータを引き継げます。
+      </p>
+      <div class="backup-actions">
+        <button type="button" id="export-button">エクスポート</button>
+        <button type="button" id="import-button" class="secondary">インポート</button>
+        <input type="file" id="import-file" accept="application/json,.json" hidden>
+      </div>
+      <p id="backup-status" class="backup-status" role="status"></p>
+    </section>
   </div>
 
   <script src="script.js"></script>
