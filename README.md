@@ -31,6 +31,24 @@ open index.html   # macOS
 すべてのデータはブラウザ内(`localStorage`)に保存されるため、同じブラウザで
 再度開いた際も内容が保持されます。
 
+## SNS分析シート (X / Threads)
+
+`sns-analysis/sns_analysis.xlsx` は、X と Threads の投稿成績を集計する
+スプレッドシートです。**現在入っているデータはダミー(サンプル)です。**
+
+- **投稿データ**: 1投稿 = 1行。青字の列(投稿日〜リンククリック)を入力すると、
+  エンゲージメント合計・率・曜日・時間帯が自動計算されます
+- **フォロワー推移**: 各SNSのフォロワー数を定点で記録(折れ線グラフ付き)
+- **サマリー**: SNS別KPI、投稿タイプ別・曜日別・時間帯別のエンゲージメント率(グラフ付き)、
+  エンゲージメント率TOP5投稿を自動集計
+
+詳しい使い方はファイル内の「使い方」シートを参照してください。
+サンプルデータ入りのファイルは次のコマンドで再生成できます(`openpyxl` が必要)。
+
+```
+python sns-analysis/generate_sample.py
+```
+
 ## プロジェクト構成
 
 現時点でのフォルダー構成は以下の通りです。
@@ -41,6 +59,9 @@ test-project/
 ├── index.html   # My Secretary アプリの画面
 ├── style.css    # スタイル定義
 ├── script.js    # アプリのロジック(localStorageで永続化)
+├── sns-analysis/
+│   ├── sns_analysis.xlsx   # SNS分析シート(サンプルデータ入り)
+│   └── generate_sample.py  # 上記シートの生成スクリプト
 └── sample.txt
 ```
 
