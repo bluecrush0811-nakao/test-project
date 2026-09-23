@@ -1,15 +1,18 @@
 const STORAGE_KEY = "my-secretary-data";
 
+function normalizeData(parsed) {
+  return {
+    tasks: parsed.tasks || [],
+    schedule: parsed.schedule || [],
+    notes: parsed.notes || [],
+  };
+}
+
 function loadData() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return { tasks: [], schedule: [], notes: [] };
-    const parsed = JSON.parse(raw);
-    return {
-      tasks: parsed.tasks || [],
-      schedule: parsed.schedule || [],
-      notes: parsed.notes || [],
-    };
+    return normalizeData(JSON.parse(raw));
   } catch {
     return { tasks: [], schedule: [], notes: [] };
   }
@@ -185,11 +188,84 @@ function setupNoteForm() {
   });
 }
 
+function isValidBackup(parsed) {
+  if (!parsed || typeof parsed !== "object") return false;
+  const { tasks = [], schedule = [], notes = [] } = parsed;
+  if (!Array.isArray(tasks) || !Array.isArray(schedule) || !Array.isArray(notes)) {
+    return false;
+  }
+  return (
+    tasks.every((t) => t && typeof t.text === "string") &&
+    schedule.every((s) => s && typeof s.time === "string" && typeof s.text === "string") &&
+    notes.every((n) => typeof n === "string")
+  );
+}
+
+function setBackupStatus(message) {
+  document.getElementById("backup-status").textContent = message;
+}
+
+function exportData() {
+  const today = new Date().toISOString().slice(0, 10);
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `my-secretary-backup-${today}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  setBackupStatus("バックアップファイルを書き出しました。");
+}
+
+function importData(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    let parsed;
+    try {
+      parsed = JSON.parse(reader.result);
+    } catch {
+      setBackupStatus("ファイルを読み込めませんでした。JSON形式のバックアップを選んでください。");
+      return;
+    }
+    if (!isValidBackup(parsed)) {
+      setBackupStatus("My Secretary のバックアップファイルではないようです。");
+      return;
+    }
+    if (!confirm("現在のデータはバックアップの内容で置き換えられます。よろしいですか?")) {
+      return;
+    }
+    Object.assign(state, normalizeData(parsed));
+    saveData(state);
+    renderTasks();
+    renderSchedule();
+    renderNotes();
+    setBackupStatus("バックアップからデータを復元しました。");
+  };
+  reader.onerror = () => {
+    setBackupStatus("ファイルを読み込めませんでした。");
+  };
+  reader.readAsText(file);
+}
+
+function setupBackup() {
+  const fileInput = document.getElementById("import-file");
+  document.getElementById("export-button").addEventListener("click", exportData);
+  document.getElementById("import-button").addEventListener("click", () => fileInput.click());
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0];
+    if (file) importData(file);
+    fileInput.value = "";
+  });
+}
+
 function init() {
   setGreeting();
   setupTaskForm();
   setupScheduleForm();
   setupNoteForm();
+  setupBackup();
   renderTasks();
   renderSchedule();
   renderNotes();

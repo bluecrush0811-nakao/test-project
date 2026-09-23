@@ -150,3 +150,39 @@ button:hover {
   text-align: center;
   padding: 12px 0;
 }
+
+.backup-card {
+  margin-top: 16px;
+}
+
+.backup-help {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.backup-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+button.secondary {
+  background: transparent;
+  color: var(--primary-dark);
+  border: 1px solid var(--primary);
+}
+
+button.secondary:hover {
+  background: #eef1ff;
+}
+
+.backup-status {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.backup-status:empty {
+  display: none;
+}
