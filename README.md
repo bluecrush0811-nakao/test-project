@@ -61,7 +61,9 @@ test-project/
 ├── script.js    # アプリのロジック(localStorageで永続化)
 ├── sns-analysis/
 │   ├── sns_analysis.xlsx   # SNS分析シート(サンプルデータ入り)
-│   └── generate_sample.py  # 上記シートの生成スクリプト
+│   ├── generate_sample.py  # 上記シートの生成スクリプト
+│   ├── threads_2026-09.xlsx # Threads 実データの分析(2026/09/24 時点)
+│   └── threads_2026-09.py   # 上記シートの生成スクリプト
 └── sample.txt
 ```
 
