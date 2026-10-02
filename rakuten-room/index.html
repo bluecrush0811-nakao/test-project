@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROOM投稿アシスタント - ふるさと納税×旅行</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>ROOM投稿アシスタント</h1>
+      <p class="sub">ふるさと納税 × 旅行・トラベルグッズの返礼品を探して、紹介文づくりとROOM投稿をサポートします。</p>
+    </header>
+
+    <!-- Settings -->
+    <details id="settings" class="card settings">
+      <summary>設定（楽天ウェブサービスのアプリID・アフィリエイトID）</summary>
+      <form id="settings-form" class="settings-grid">
+        <label>アプリID（必須）
+          <input type="text" id="app-id" placeholder="例: 1234567890123456789" required>
+        </label>
+        <label>アフィリエイトID（任意）
+          <input type="text" id="affiliate-id" placeholder="例: 1a2b3c4d.5e6f7a8b.1a2b3c4d.5e6f7a8b">
+        </label>
+        <label class="wide">APIエンドポイント
+          <input type="url" id="endpoint">
+        </label>
+        <div class="wide row-end">
+          <button type="submit">保存</button>
+        </div>
+      </form>
+      <p class="hint">アプリIDは <a href="https://webservice.rakuten.co.jp/" target="_blank" rel="noopener">楽天ウェブサービス</a> で無料登録して取得できます。設定はこのブラウザ内にだけ保存されます。</p>
+    </details>
+
+    <!-- Search -->
+    <section class="card">
+      <h2>返礼品をさがす</h2>
+      <div class="presets" id="presets"></div>
+      <form id="search-form" class="search-row">
+        <input type="text" id="keyword" placeholder="キーワード（例: スーツケース）" required>
+        <select id="sort">
+          <option value="standard">おすすめ順</option>
+          <option value="-reviewCount">レビュー件数順</option>
+          <option value="-reviewAverage">評価が高い順</option>
+          <option value="+itemPrice">寄付額が安い順</option>
+          <option value="-itemPrice">寄付額が高い順</option>
+        </select>
+        <button type="submit">検索</button>
+      </form>
+      <div class="filters">
+        <label><input type="checkbox" id="only-furusato" checked> ふるさと納税の返礼品だけ表示</label>
+        <label><input type="checkbox" id="hide-posted" checked> 投稿済みを隠す</label>
+      </div>
+      <p id="status" class="status"></p>
+    </section>
+
+    <section id="results" class="results"></section>
+    <div class="more-row"><button id="more" class="secondary" hidden>さらに読み込む</button></div>
+
+    <!-- Posted history -->
+    <section class="card">
+      <h2>投稿済みリスト <span id="posted-count" class="count"></span></h2>
+      <ul id="posted-list" class="posted-list"></ul>
+    </section>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>
