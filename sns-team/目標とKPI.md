@@ -25,7 +25,7 @@
 | アカウント | ID | 名前 | フォロワー | 最近の閲覧数 | 記録日 |
 |---|---|---|---:|---:|---|
 | X | [@Tida777](https://x.com/Tida777) | ハイサイ!!マネーChallenge/副業・投資 | 228 | 未記入 | 2026-10-04 |
-| Threads投資AI | [@chra_okinawan](https://www.threads.com/@chra_okinawan) | AI×チャレンジ | 0 | | 2026-10-04 |
+| Threads投資AI | [@chra_okinawan](https://www.threads.com/@chra_okinawan) | Ai×投資(チャレンジ) | 0 | 0 | 2026-10-04 |
 | Threads沖縄 | [@crypto_shokunin](https://www.threads.com/@crypto_shokunin) | 沖縄レア情報局 | 112 | 4.2万 | 2026-10-04 |
 
 - Threads沖縄 はプロフィールに楽天ROOM(room.rakuten.co.jp/okinaone/items)を掲載済み
@@ -93,4 +93,4 @@
 - [x] X のアカウント: @Tida777(フォロワー228)
 - [x] Threads沖縄 のアカウント: @crypto_shokunin(フォロワー112、最近の閲覧数4.2万)
 - [x] 現在の資産額: **1,025,428円(2026年8月末)**。公開OK
-- [x] Threads投資AI のアカウント: @chra_okinawan(名前: AI×チャレンジ、プロフィール文設定済み)。Instagram の claude_seaser は使わない
+- [x] Threads投資AI のアカウント: @chra_okinawan(名前: Ai×投資(チャレンジ)、プロフィール文設定済み)。Instagram の claude_seaser は使わない
