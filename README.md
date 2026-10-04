@@ -35,6 +35,7 @@ open index.html   # macOS
 
 Claude Code のサブエージェントで、担当を分けたSNSマーケティングチームを構成しています。
 目標は **アフィリエイト収益 月30万円** です(KPIの分解は `sns-team/目標とKPI.md`)。
+運用アカウントは Threads投資AI(新規)/ X / Threads沖縄 の3つです。
 
 | 担当 | サブエージェント | 役割 |
 |---|---|---|
