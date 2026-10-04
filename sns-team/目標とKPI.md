@@ -25,7 +25,7 @@
 | アカウント | ID | 名前 | フォロワー | 最近の閲覧数 | 記録日 |
 |---|---|---|---:|---:|---|
 | X | [@Tida777](https://x.com/Tida777) | ハイサイ!!マネーChallenge/副業・投資 | 228 | 未記入 | 2026-10-04 |
-| Threads投資AI | 未作成 | | 0 | | |
+| Threads投資AI | 未記入 | Claude シーサー(2026-10-04 作成。名前は見直し検討中) | 0 | | 2026-10-04 |
 | Threads沖縄 | [@crypto_shokunin](https://www.threads.com/@crypto_shokunin) | 沖縄レア情報局 | 112 | 4.2万 | 2026-10-04 |
 
 - Threads沖縄 はプロフィールに楽天ROOM(room.rakuten.co.jp/okinaone/items)を掲載済み
