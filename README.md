@@ -31,6 +31,22 @@ open index.html   # macOS
 すべてのデータはブラウザ内(`localStorage`)に保存されるため、同じブラウザで
 再度開いた際も内容が保持されます。
 
+## SNSマーケティングチーム
+
+Claude Code のサブエージェントで、担当を分けたSNSマーケティングチームを構成しています。
+目標は **アフィリエイト収益 月30万円** です(KPIの分解は `sns-team/目標とKPI.md`)。
+
+| 担当 | サブエージェント | 役割 |
+|---|---|---|
+| SNS分析 | `sns-analyst` | 実績データの分析、ボトルネック特定、打ち手の提案 |
+| 投稿の下書き | `sns-writer` | 投稿文・投稿カレンダーの作成 |
+| アフィリエイト | `affiliate-manager` | 案件の選定・管理、収益試算 |
+| 投稿のチェック | `post-checker` | 法令(ステマ規制・景表法・薬機法)・規約・品質の審査 |
+
+Claude Code で `/sns-team` を実行すると、分析 → 案件選定 → 下書き → チェック の週次サイクルを
+順番に回します。投稿の実績は `sns-team/data/posts.csv`、案件は
+`sns-team/data/affiliate_programs.csv` に記録してください。投稿の公開は人間が行います。
+
 ## プロジェクト構成
 
 現時点でのフォルダー構成は以下の通りです。
@@ -41,7 +57,15 @@ test-project/
 ├── index.html   # My Secretary アプリの画面
 ├── style.css    # スタイル定義
 ├── script.js    # アプリのロジック(localStorageで永続化)
-└── sample.txt
+├── sample.txt
+├── .claude/
+│   ├── agents/      # SNSチームの各担当(サブエージェント)
+│   └── skills/sns-team/SKILL.md  # チームを動かす週次サイクル
+└── sns-team/
+    ├── 目標とKPI.md  # 月30万円の収益分解・担当別KPI・ロードマップ
+    ├── data/        # 投稿実績・アフィリエイト案件のCSV
+    ├── drafts/      # 投稿の下書き
+    └── reports/     # 分析・アフィリエイトのレポート
 ```
 
 新しいファイルやディレクトリを追加した際は、このセクションも合わせて更新してください。
