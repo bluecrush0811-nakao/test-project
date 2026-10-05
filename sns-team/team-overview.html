@@ -1,0 +1,174 @@
+<title>ハイサイ!!SNSチーム</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: one narrow column for phones; summary first, then team, accounts, plan, this week. */
+:root{
+  --bg:#F3F6F6; --surface:#FFFFFF; --fg:#13222A; --muted:#5A6B72; --line:#D9E2E4;
+  --sea:#0E6B82; --sea-soft:#E1EFF2; --bingata:#B8402B; --gold:#C58F12; --ok:#2F7D4F; --ok-soft:#E3F1E8;
+  --display:"Zen Maru Gothic","Hiragino Maru Gothic ProN",system-ui,sans-serif;
+  --body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F1A1F; --surface:#16242A; --fg:#E6EEF0; --muted:#97A9AF; --line:#2A3B42;
+  --sea:#5BB8CF; --sea-soft:#17323A; --bingata:#E9785F; --gold:#E7B84A; --ok:#6CC28F; --ok-soft:#183126; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1A1F; --surface:#16242A; --fg:#E6EEF0; --muted:#97A9AF; --line:#2A3B42;
+  --sea:#5BB8CF; --sea-soft:#17323A; --bingata:#E9785F; --gold:#E7B84A; --ok:#6CC28F; --ok-soft:#183126; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.7}
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:24px 48px;display:flex;flex-direction:column;gap:36px}
+h1,h2{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.35}
+h1{font-size:1.65rem}
+h2{font-size:1.2rem;display:flex;align-items:baseline;gap:10px}
+h2 small{font-family:var(--body);font-size:.78rem;color:var(--muted);font-weight:500}
+p{margin:0}
+.eyebrow{font-size:.75rem;letter-spacing:.12em;color:var(--sea);font-weight:700}
+.sec{display:flex;flex-direction:column;gap:14px}
+.goal{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.goal-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.stat .k{font-size:.78rem;color:var(--muted)}
+.stat .v{font-family:var(--display);font-size:1.5rem;font-variant-numeric:tabular-nums}
+.stat .v span{font-size:.85rem;color:var(--muted);margin-left:4px}
+.bar{height:8px;border-radius:99px;background:var(--sea-soft);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--sea);border-radius:99px}
+.bar-label{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.team{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.member{border-top:3px solid var(--sea);background:var(--surface);padding:12px 14px;border-radius:0 0 10px 10px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.member .role{font-weight:700}
+.member .id{font-family:ui-monospace,Menlo,monospace;font-size:.72rem;color:var(--muted);word-break:break-all}
+.member p{font-size:.85rem;color:var(--muted)}
+.member.check{border-top-color:var(--bingata)}
+.member.aff{border-top-color:var(--gold)}
+.flow{font-size:.85rem;color:var(--muted);background:var(--sea-soft);border-radius:10px;padding:10px 14px}
+.flow b{color:var(--fg)}
+.acct{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.acct-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:14px;border-top:1px solid var(--line)}
+.acct-item:first-child{border-top:0}
+.acct-item .name{font-weight:700}
+.acct-item .handle{font-size:.82rem;color:var(--sea);text-decoration:none;word-break:break-all}
+.acct-item .theme{grid-column:1/-1;font-size:.85rem;color:var(--muted)}
+.pill{align-self:start;font-size:.72rem;font-weight:700;padding:2px 10px;border-radius:99px;white-space:nowrap;background:var(--sea-soft);color:var(--sea)}
+.pill.top{background:var(--bingata);color:var(--surface)}
+.nums{grid-column:1/-1;display:flex;gap:16px;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.nums b{color:var(--fg)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.85rem;font-variant-numeric:tabular-nums}
+th,td{padding:9px 12px;text-align:left;border-top:1px solid var(--line);white-space:nowrap}
+thead th{border-top:0;font-size:.75rem;color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+tfoot td{font-weight:700}
+.note{font-size:.78rem;color:var(--muted)}
+.week{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.week li{display:grid;grid-template-columns:5.2em minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:10px 12px;background:var(--surface);border-radius:10px;border:1px solid var(--line)}
+.week .when{font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.st{font-size:.7rem;font-weight:700;padding:1px 8px;border-radius:99px;white-space:nowrap}
+.st.done{background:var(--ok-soft);color:var(--ok)}
+.st.ready{background:var(--sea-soft);color:var(--sea)}
+.st.need{background:transparent;color:var(--bingata);border:1px solid var(--bingata)}
+.todo{display:flex;flex-direction:column;gap:8px;margin:0;padding-left:1.2em}
+.todo li::marker{color:var(--bingata)}
+footer{font-size:.75rem;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+a:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+</style>
+
+<div class="wrap">
+
+<header class="sec">
+  <span class="eyebrow">SNSマーケティングチーム</span>
+  <h1>ハイサイ!!SNSチームの現在地</h1>
+  <p class="note">2026年10月5日時点</p>
+</header>
+
+<section class="goal" aria-label="目標">
+  <div class="goal-row">
+    <div class="stat"><div class="k">収益の目標</div><div class="v">30万円<span>/月</span></div></div>
+    <div class="stat"><div class="k">いまの収益</div><div class="v">約1,500円<span>(9月 bitFlyer紹介)</span></div></div>
+  </div>
+  <div class="stat"><div class="k">資産の目標 2000万円(8月末時点)</div><div class="v">102.5万円<span>あと1,897万円</span></div></div>
+  <div>
+    <div class="bar" role="img" aria-label="資産の進捗 5.1%"><i style="width:5.1%"></i></div>
+    <div class="bar-label"><span>0円</span><span>5.1%</span><span>2000万円</span></div>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>チームの4担当 <small>Claude のサブエージェント</small></h2>
+  <div class="team">
+    <div class="member"><span class="role">SNS分析</span><span class="id">sns-analyst</span><p>数字を見て、伸びた型と次の打ち手を出す</p></div>
+    <div class="member"><span class="role">投稿の下書き</span><span class="id">sns-writer</span><p>3アカウントの投稿を書き分ける</p></div>
+    <div class="member aff"><span class="role">アフィリエイト</span><span class="id">affiliate-manager</span><p>案件を選び、収益を計算する</p></div>
+    <div class="member check"><span class="role">投稿のチェック</span><span class="id">post-checker</span><p>法令・規約・数字・炎上リスクを公開前に確認</p></div>
+  </div>
+  <p class="flow">毎週の流れ:<b>分析</b> → <b>案件選び</b> → <b>下書き</b> → <b>チェック</b> → 公開はご本人</p>
+</section>
+
+<section class="sec">
+  <h2>運用アカウント <small>3つ</small></h2>
+  <div class="acct">
+    <div class="acct-item">
+      <span class="name">Ai×投資(チャレンジ)</span><span class="pill top">最優先</span>
+      <a class="handle" href="https://www.threads.com/@chra_okinawan">Threads @chra_okinawan</a>
+      <span class="theme">投資・AI活用のリアルな挑戦記録。収益の柱</span>
+      <div class="nums"><span>フォロワー <b>0</b></span><span>投稿 <b>1</b></span><span>1日2〜3投稿</span></div>
+    </div>
+    <div class="acct-item">
+      <span class="name">ハイサイ!!マネーChallenge</span><span class="pill">姉妹</span>
+      <a class="handle" href="https://x.com/Tida777">X @Tida777</a>
+      <span class="theme">投資・副業の挑戦記録。Threadsの体験をX向けに書き直す</span>
+      <div class="nums"><span>フォロワー <b>228</b></span><span>1日2投稿</span></div>
+    </div>
+    <div class="acct-item">
+      <span class="name">沖縄レア情報局</span><span class="pill">維持</span>
+      <a class="handle" href="https://www.threads.com/@crypto_shokunin">Threads @crypto_shokunin</a>
+      <span class="theme">Uber配達中に見つけた沖縄のレアなお店・自販機・伝統芸能</span>
+      <div class="nums"><span>フォロワー <b>112</b></span><span>閲覧 <b>4.2万</b></span><span>1日1投稿</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>月30万円の内訳 <small>仮の数字</small></h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>アカウント</th><th>案件</th><th class="r">月の収益</th></tr></thead>
+      <tbody>
+        <tr><td>Ai×投資</td><td>証券口座・クレカなど</td><td class="r">10万円</td></tr>
+        <tr><td>Ai×投資</td><td>AIツール・スクール</td><td class="r">6万円</td></tr>
+        <tr><td>X</td><td>証券口座・クレカなど</td><td class="r">10万円</td></tr>
+        <tr><td>X</td><td>副業向けサービス</td><td class="r">1.5万円</td></tr>
+        <tr><td>沖縄</td><td>宿泊・体験の予約</td><td class="r">1.5万円</td></tr>
+        <tr><td>沖縄</td><td>特産品(楽天ROOM)</td><td class="r">1万円</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">合計(1日 約350クリック)</td><td class="r">30万円</td></tr></tfoot>
+    </table>
+  </div>
+  <p class="note">目安:1〜2か月目はフォロワー集め(〜1万円)、3〜4か月目に3〜10万円、5〜6か月目に15〜30万円。</p>
+</section>
+
+<section class="sec">
+  <h2>今週の投稿 <small>Ai×投資</small></h2>
+  <ul class="week">
+    <li><span class="when">10/4 夜</span><span>Day1-1 挑戦開始の宣言</span><span class="st done">投稿済み</span></li>
+    <li><span class="when">10/5 朝7時</span><span>Day1-2 なぜ発信するのか</span><span class="st ready">そのまま投稿OK</span></li>
+    <li><span class="when">10/5 夜9時</span><span>Day2 資産の内訳を公開</span><span class="st need">【 】記入待ち</span></li>
+    <li><span class="when">10/6〜</span><span>Day3 AIに投資記録を分析させた</span><span class="st need">【 】記入待ち</span></li>
+    <li><span class="when">10/7〜</span><span>Day4 副業Uberのリアル</span><span class="st need">【 】記入待ち</span></li>
+    <li><span class="when">10/8〜</span><span>Day5 iDeCoのこと</span><span class="st need">【 】記入待ち</span></li>
+    <li><span class="when">10/9〜</span><span>Day6 失敗談(-2,420円)</span><span class="st need">【 】記入待ち</span></li>
+    <li><span class="when">10/10〜</span><span>Day7 1週目の振り返り</span><span class="st need">【 】記入待ち</span></li>
+  </ul>
+  <p class="note">全8本、チェック担当の確認済み。【 】はご本人の気持ちや判断を書く欄です。</p>
+</section>
+
+<section class="sec">
+  <h2>次にやること</h2>
+  <ol class="todo">
+    <li>Ai×投資のアカウントで10人フォローする(新NISA・AI活用・副業パパなど)</li>
+    <li>10/5 朝7時に Day1-2 を投稿する</li>
+    <li>Day2 の【 】(仮想通貨が4割超あることへの気持ち・方針)を送る</li>
+    <li>1週間後、閲覧数とフォロワー数のスクショを送る</li>
+  </ol>
+</section>
+
+<footer>チームの設定と下書きは GitHub の bluecrush0811-nakao/test-project(ブランチ ccr-1ed7dc3f-i81w79)の <code>sns-team/</code> と <code>.claude/</code> にあります。</footer>
+</div>
