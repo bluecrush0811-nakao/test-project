@@ -35,7 +35,7 @@
 ## アカウント情報
 | アカウント | ID | 名前 | フォロワー | 最近の閲覧数 | 記録日 |
 |---|---|---|---:|---:|---|
-| X | [@Tida777](https://x.com/Tida777) | ハイサイ!!マネーChallenge/副業・投資 | 228 | 未記入 | 2026-10-04 |
+| X | [@Tida777](https://x.com/Tida777) | ハイサイ!!マネーChallenge/副業・投資 | 229 | 7日間 1,186インプレッション | 2026-10-07 |
 | Threads投資AI | [@chra_okinawan](https://www.threads.com/@chra_okinawan) | Ai×投資(チャレンジ) | 0 | 0 | 2026-10-04 |
 | Threads沖縄 | [@crypto_shokunin](https://www.threads.com/@crypto_shokunin) | 沖縄レア情報局 | 112 | 4.2万 | 2026-10-04 |
 
